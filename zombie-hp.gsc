@@ -1,40 +1,40 @@
 
 init()
 {
-	level thread onplayerconnect();
+	level thread onPlayerConnect();
+	level thread onPlayerMessage();
 }
 
-onplayerconnect()
+onPlayerConnect()
 {
 	for ( ;; )
 	{
 		level waittill( "connecting", player );
-		player thread onplayerspawned();
-        player thread onplayerdamaged();
-        // player thread onplayertext();
-        player thread OnPlayerStartSprint();
+		player thread onPlayerSpawned();
+        player thread onPlayerDamaged();
+        player thread onPlayerStartSprint();
 	}
 }
 
-OnPlayerStartSprint()
+onPlayerStartSprint()
 {
     for ( ;; )
-    {
+	{
         self waittill( "sprint_begin" );
 		self IPrintLn( "TA CORRENDO"  );
     }
 }
 
-onplayertext()
+onPlayerMessage()
 {
-    for ( ;; )
-    {
-        self waittill( "message" );
-		self IPrintLn( "OLHA A MENSAGEM"  );
+    for ( ;; ) 
+	{
+        self waittill( "say", message, player );
+		player IPrintLn( "OLHA A MENSAGEM " + player.health  );
     }
 }
 
-onplayerdamaged()
+onPlayerDamaged()
 {
     for ( ;; ) 
     {
@@ -46,7 +46,7 @@ onplayerdamaged()
     }
 }
 
-onplayerspawned()
+onPlayerSpawned()
 {
 	level endon( "game_ended" );
     self endon( "disconnect" );
