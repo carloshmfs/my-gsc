@@ -1,8 +1,29 @@
+#include maps\mp\zombies\_zm_utility;
 
 init()
 {
 	level thread onPlayerConnect();
 	level thread onPlayerMessage();
+}
+
+get_first_zombie()
+{
+	zombie_array = get_round_enemy_array();
+	if ( isDefined( zombie_array ) && isDefined( zombie_array[0] ) ) {
+		return zombie_array[0];
+	}
+
+	return undefined;
+}
+
+get_current_zombies_health()
+{
+	zombie = get_first_zombie();
+	if ( isDefined( zombie ) && isDefined( zombie.health ) ) {
+		return zombie.health;
+	}
+
+	return undefined;
 }
 
 onPlayerConnect()
@@ -30,7 +51,13 @@ onPlayerMessage()
     for ( ;; ) 
 	{
         self waittill( "say", message, player );
-		player IPrintLn( "OLHA A MENSAGEM " + player.health  );
+
+		if (message == ".zp") {
+			zombie_health = get_current_zombies_health();
+			if ( isDefined(zombie_health) ) {
+				player IPrintLn( "PINTO CU BOSTA " + zombie_health );
+			}
+		}
     }
 }
 
