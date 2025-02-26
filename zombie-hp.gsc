@@ -4,6 +4,11 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\gametypes_zm\_hud_util;
 
+/*
+    Mod: zombie-hp
+
+    This script displays the current zombie health for the round.
+*/
 init()
 {
 	initZombieHealthDisplay();
